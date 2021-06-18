@@ -3,9 +3,11 @@
 
 ## Datasets
 
-Roxford5k: (https://www.robots.ox.ac.uk/~vgg/data/oxbuildings/)
-Rpairs6k: (https://www.robots.ox.ac.uk/~vgg/data/parisbuildings/)
-R1M: (http://ptak.felk.cvut.cz/revisitop/revisitop1m/jpg/)
+Roxford5k: https://www.robots.ox.ac.uk/~vgg/data/oxbuildings/
+
+Rpairs6k: https://www.robots.ox.ac.uk/~vgg/data/parisbuildings/
+
+R1M: http://ptak.felk.cvut.cz/revisitop/revisitop1m/jpg/
 
 
 ## Python
@@ -13,6 +15,8 @@ R1M: (http://ptak.felk.cvut.cz/revisitop/revisitop1m/jpg/)
 Tested with Python 3.7 on CentOS.
 
 ### Extract features
+```
+```
 
 
 ### Evaluate results
@@ -35,9 +39,7 @@ or
 
 ### Reference
 
-```
-(https://github.com/filipradenovic/revisitop)
-```
+https://github.com/filipradenovic/revisitop
 
 
 ## Related publication
