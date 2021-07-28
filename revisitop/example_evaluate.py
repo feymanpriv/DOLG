@@ -7,7 +7,6 @@
 #
 # Authors: Radenovic F., Iscen A., Tolias G., Avrithis Y., Chum O., 2018
 # Written by Yang Min 2021
-# Download from http://ptak.felk.cvut.cz/revisitop/revisitop1m/jpg/
 
 import os
 import os.path as osp
