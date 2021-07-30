@@ -1,7 +1,8 @@
 # DOLG: Single-Stage Image Retrieval with Deep Orthogonal Fusion of Local and Global Features (ICCV 2021)
 
 ## Pipeline
-![image-20190807160835333](imgs/figure2.pdf)
+<p align="center"><img width="70%" src="imgs/figure2.pdf" /></p>
+<p align="center"><img width="30%" src="imgs/orthogo.pdf" /></p>
 
 
 ## Performances
