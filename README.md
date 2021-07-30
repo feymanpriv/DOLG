@@ -34,7 +34,7 @@ pip install -r requirements.txt
 
 
 ## Wights
-On the way ...
+Coming soon ...
 
 
 ## Citation
