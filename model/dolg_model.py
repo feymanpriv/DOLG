@@ -22,7 +22,7 @@ from model.resnet import GeneralizedMeanPoolingP
 class DOLG(nn.Module):
     """ DOLG Model Arch """
     def __init__(self):
-        super(Delg, self).__init__()
+        super(DOLG, self).__init__()
         self.pool_l= nn.AdaptiveAvgPool2d((1, 1)) 
         self.pool_g = GeneralizedMeanPoolingP() 
         self.fc_t = nn.Linear(2048, 1024, bias=True)

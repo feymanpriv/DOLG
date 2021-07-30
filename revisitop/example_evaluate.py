@@ -6,7 +6,7 @@
 # Radenovic F., Iscen A., Tolias G., Avrithis Y., Chum O., Revisiting Oxford and Paris: Large-Scale Image Retrieval Benchmarking, CVPR 2018
 #
 # Authors: Radenovic F., Iscen A., Tolias G., Avrithis Y., Chum O., 2018
-# Written by Yang Min 2021
+# Written by Feymanpriv 2021
 
 import os
 import os.path as osp
