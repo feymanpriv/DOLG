@@ -4,7 +4,7 @@
 #
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
-# written by yangmin09
+# written by feymanpriv
 
 import init_path
 import core.config as config

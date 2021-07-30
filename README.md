@@ -1,13 +1,19 @@
 # DOLG: Single-Stage Image Retrieval with Deep Orthogonal Fusion of Local and Global Features (ICCV 2021)
 
 ## Pipeline
-
+![image-20190807160835333](imgs/figure2.pdf)
 
 
 ## Performances
+![Graph](imgs/result1.png)
 
 
 ## Codes
+Please refer my **DELG**(https://github.com/feymanpriv/DELG) project to install and get started. 
+
+
+## Wights
+On the way ...
 
 
 ## Citation
