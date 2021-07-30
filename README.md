@@ -5,30 +5,15 @@
 
 
 ## Performances
-![Graph](imgs/result1.png)
-
------
-
-![Graph](imgs/result2.png)
-
------
-
-![Graph](imgs/result3.png)
-
------
-
-![Graph](imgs/result4.png)
-
-
+<p align="center"><img width="100%" src="imgs/result1.png" /></p>
 
 
 ## Codes
 
-###Requirements
+### Requirements
 
 - NVIDIA GPU, Linux, Python3(tested on 3.6.10)
-- >= PyTorch 1.4.0
-- Tested with CUDA 10.2 and cuDNN 7.1
+- Tested with CUDA 10.2, cuDNN 7.1 and PyTorch 1.4.0
 
 ```
 pip install -r requirements.txt
@@ -45,7 +30,7 @@ pip install -r requirements.txt
 
 1. Feature extraction, set ${total_num} = n * (gpu_cards) in configs/example.yaml and run evaler/run.sh for feature extraction. 
 
-2. Eval on ROxf and RPar, refer [`README.md`](revisitop/README.md) for data fetch and description. Groudtruth file and some examples are prepared in `revisitop`. 
+2. Eval on ROxf and RPar, refer [`README.md`](revisitop/README.md) for data fetch and description. Groudtruth file and some examples are prepared in [revisitop](https://github.com/feymanpriv/DOLG/tree/main/revisitop). 
 
 
 ## Wights
@@ -69,11 +54,7 @@ If the project helps your research, please consider citing our paper as follows.
 
 ## References
 
-**pycls**(https://github.com/facebookresearch/pycls)
-
-**pymetric**(https://github.com/feymanpriv/pymetric)
-
-**DELG**(https://github.com/feymanpriv/DELG)
-
-**Parsing-R-CNN**(https://github.com/soeaver/Parsing-R-CNN)
-
+pycls(https://github.com/facebookresearch/pycls)
+pymetric(https://github.com/feymanpriv/pymetric)
+DELG(https://github.com/feymanpriv/DELG)
+Parsing-R-CNN(https://github.com/soeaver/Parsing-R-CNN)
