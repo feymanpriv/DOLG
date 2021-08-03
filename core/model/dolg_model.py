@@ -14,8 +14,8 @@ from torch.nn import Parameter
 
 import core.net as net
 from core.config import cfg
-from model.resnet import ResNet, ResHead, 
-from model.resnet import GeneralizedMeanPoolingP
+from core.model.resnet import ResNet, ResHead
+from core.model.resnet import GeneralizedMeanPoolingP
 
 """ Dolg models """
 

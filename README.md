@@ -23,18 +23,22 @@ pip install -r requirements.txt
 
 1. Find datasets via symlinks from `datasets/data` to the actual locations where the dataset images and annotations are stored. Refer to [`DATA.md`](imgs/DATA.md).
 
-2. Set datapath, model, training parameters in configs/example.yaml and run job.sh.
+2. Set datapath, model, training parameters in configs/resnet101_delg_8gpu.yaml and run job.sh.
 
 
 ### Evaluation
 
-1. Feature extraction, set ${total_num} = n * (gpu_cards) in configs/example.yaml and run evaler/run.sh for feature extraction. 
+1. Feature extraction, set ${total_num} = n * (gpu_cards) in configs/resnet101_delg_8gpu.yaml and run evaler/run.sh for feature extraction. 
 
 2. Eval on ROxf and RPar, refer [`README.md`](revisitop/README.md) for data fetch and description. Groudtruth file and some examples are prepared in [revisitop](https://github.com/feymanpriv/DOLG/tree/main/revisitop). 
 
 
-## Wights
-Coming soon ...
+### Wights
+
+**GLDv2-clean**
+
+- [R-50-DOLG](https://drive.google.com/file/d/1sqOne-u3iCz5DHy3dE8G0skQlJSmSAgT/view?usp=sharing)
+- [R-101-DOLG](https://drive.google.com/file/d/1cvahm8H64-NVi542-58tV28dnIxwXF4t/view?usp=sharing)
 
 
 ## Citation
