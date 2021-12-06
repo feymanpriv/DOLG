@@ -34,6 +34,11 @@ _C.MODEL.TYPE = ""
 # Number of weight layers
 _C.MODEL.DEPTH = 0
 
+# Channels
+_C.MODEL.S4_DIM = 2048
+_C.MODEL.S3_DIM = 1024
+_C.MODEL.S2_DIM = 512
+
 # Number of classes
 _C.MODEL.NUM_CLASSES = 10
 

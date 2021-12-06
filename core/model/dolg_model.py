@@ -20,19 +20,45 @@ from core.model.resnet import GeneralizedMeanPoolingP
 """ Dolg models """
 
 class DOLG(nn.Module):
-    """ DOLG Model Arch """
+    """ DOLG model """
     def __init__(self):
         super(DOLG, self).__init__()
         self.pool_l= nn.AdaptiveAvgPool2d((1, 1)) 
-        self.pool_g = GeneralizedMeanPoolingP() 
-        self.fc_t = nn.Linear(2048, 1024, bias=True)
-        self.fc = nn.Linear(2048, cfg.MODEL.HEADS.REDUCTION_DIM, bias=True)
+        self.pool_g = GeneralizedMeanPooling(norm=3.0) 
+        self.fc_t = nn.Linear(cfg.MODEL.S4_DIM, cfg.MODEL.S3_DIM, bias=True)
+        self.fc = nn.Linear(cfg.MODEL.S4_DIM, cfg.MODEL.HEADS.REDUCTION_DIM, bias=True)
         self.globalmodel = ResNet()
-        self.localmodel = SpatialAttention2d(1024)
+        self.localmodel = SpatialAttention2d(cfg.MODEL.S3_DIM)
         self.desc_cls = Arcface(cfg.MODEL.HEADS.REDUCTION_DIM, cfg.MODEL.NUM_CLASSES)
-    
+
     def forward(self, x, targets):
-        """ Perform Orthogonal On Two Featuremaps """
+        """ Global and local orthogonal fusion """
+        f3, f4 = self.globalmodel(x)
+        fl, _ = self.localmodel(f3)
+        
+        fg_o = self.pool_g(f4)
+        fg_o = fg_o.view(fg_o.size(0), cfg.MODEL.S4_DIM)
+        
+        fg = self.fc_t(fg_o)
+        fg_norm = torch.norm(fg, p=2, dim=1)
+        
+        proj = torch.bmm(fg.unsqueeze(1), torch.flatten(fl, start_dim=2))
+        proj = torch.bmm(fg.unsqueeze(2), proj).view(fl.size())
+        proj = proj / (fg_norm * fg_norm).view(-1, 1, 1, 1)
+        orth_comp = fl - proj
+
+        fo = self.pool_l(orth_comp)
+        fo = fo.view(fo.size(0), cfg.MODEL.S3_DIM)
+
+        final_feat=torch.cat((fg, fo), 1)
+        global_feature = self.fc(final_feat)
+
+        global_logits = self.desc_cls(global_feature, targets)
+        return global_feature, global_logits
+
+    '''
+    def forward(self, x, targets):
+        """ Global and local orthogonal fusion """
         feamap3, feamap4 = self.globalmodel(x)
 
         g_f = self.pool_g(feamap4)
@@ -43,9 +69,10 @@ class DOLG(nn.Module):
         e_f = g_f.expand_as(feamap3)
 
         local_feamap3, _ = self.localmodel(feamap3)
-        orth_feamap3 = local_feamap3 - (torch.sum(e_f * local_feamap3, dim=1) / 
-                            torch.sum(e_f * e_f, dim=1)).unsqueeze(1) * e_f
-
+        proj = torch.sum(e_f * local_feamap3, dim=1) / 
+                    torch.sum(e_f * e_f, dim=1).unsqueeze(1) * e_f
+        
+        orth_comp = local_feamap3 - proj
         p_f = self.pool_l(orth_feamap3)
         p_f = p_f.view(p_f.size(0), -1)
         g_f = g_f.view(g_f.size(0), -1)
@@ -55,6 +82,7 @@ class DOLG(nn.Module):
 
         global_logits = self.desc_cls(global_feature, targets)
         return global_feature, global_logits
+    '''
 
 
 class SpatialAttention2d(nn.Module):
