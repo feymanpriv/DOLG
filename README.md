@@ -5,7 +5,7 @@
 
 
 ## Performances
-<p align="center"><img width="100%" src="imgs/result1.png" /></p>
+<p align="center"><img width="100%" src="imgs/result_overview.png" /></p>
 
 **modified results (should follow cropping results)**
 
@@ -39,7 +39,7 @@ pip install -r requirements.txt
 
 ### Evaluation
 
-1. ROxf and RPar feature extraction, set total_num=1, run **python evaler/infer.py**.
+1. ROxf and RPar feature extraction, set ${total_num}=1, run **python evaler/infer.py**.
 
 2. 1M distractor feature extraction, set ${total_num} = n * (gpu_cards) in configs/resnet101_delg_8gpu.yaml and run **scripts/run_extractor.sh**. 
 
@@ -71,9 +71,6 @@ If the project helps your research, please consider citing our paper as follows.
 ## References
 
 pycls(https://github.com/facebookresearch/pycls)
-
 pymetric(https://github.com/feymanpriv/pymetric)
-
 DELG(https://github.com/feymanpriv/DELG)
-
 Parsing-R-CNN(https://github.com/soeaver/Parsing-R-CNN)
