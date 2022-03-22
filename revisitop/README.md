@@ -23,7 +23,7 @@ Tested with Python 3.7 on CentOS.
 
 Example script that describes how to evaluate according to the revisited annotation and the three protocol setups:
 ```
->> python3 example_evaluate
+>> python3 example_evaluate.py
 ```
 The final output should look like this (depending on the selected ```test_dataset```):
 ```
