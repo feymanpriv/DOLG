@@ -7,6 +7,17 @@
 ## Performances
 <p align="center"><img width="100%" src="imgs/result1.png" /></p>
 
+**modified results (should follow cropping results)**
+
+|  			 					 | Roxf-M | +1M | Rpar-M | +1M   | Roxf-H | +1M  | Rpar-H | +1M  |
+|:------------------------------:|:------:|:---:|:------:|:-----:|:------:|:----:|:------:|:----:|
+|  DOLG-R50(with query cropping) |  81.20 |  -- | 90.07  |       |  62.55 |  --  | 79.20  |      |
+|  DOLG-R101(with query cropping)|  82.37 |  -- | 90.97  |       |  64.93 |  --  | 81.71  |      |
+|                                                                                                |
+|  DOLG-R50(w/o query cropping)  |  82.38 |     | 90.94  |       |  62.92 |      | 80.48  |      | 
+|  DOLG-R101(w/o query cropping) |  83.22 |     | 91.64  |       |  64.83 |      | 82.56  |      |
+
++1M results is on going.
 
 ## Codes
 
@@ -23,22 +34,21 @@ pip install -r requirements.txt
 
 1. Find datasets via symlinks from `datasets/data` to the actual locations where the dataset images and annotations are stored. Refer to [`DATA.md`](imgs/DATA.md).
 
-2. Set datapath, model, training parameters in configs/resnet101_delg_8gpu.yaml and run job.sh.
+2. Set datapath, model, training parameters in configs/resnet101_delg_8gpu.yaml and run scripts/run_train.sh.
 
 
 ### Evaluation
 
-1. Feature extraction, set ${total_num} = n * (gpu_cards) in configs/resnet101_delg_8gpu.yaml and run evaler/run.sh for feature extraction. 
+1. ROxf and RPar feature extraction, set total_num=1, run **python evaler/infer.py**.
 
-2. Eval on ROxf and RPar, refer [`README.md`](revisitop/README.md) for data fetch and description. Groudtruth file and some examples are prepared in [revisitop](https://github.com/feymanpriv/DOLG/tree/main/revisitop). 
+2. 1M distractor feature extraction, set ${total_num} = n * (gpu_cards) in configs/resnet101_delg_8gpu.yaml and run **scripts/run_extractor.sh**. 
+
+3. Eval on ROxf and RPar, refer [`README.md`](revisitop/README.md) for data fetch and description. Groudtruth file and some examples are prepared in [revisitop](https://github.com/feymanpriv/DOLG/tree/main/revisitop). 
 
 
 ### Wights
 
-**GLDv2-clean**
-
-- [R-50-DOLG](https://drive.google.com/file/d/1sqOne-u3iCz5DHy3dE8G0skQlJSmSAgT/view?usp=sharing)
-- [R-101-DOLG](https://drive.google.com/file/d/1cvahm8H64-NVi542-58tV28dnIxwXF4t/view?usp=sharing)
+- [R-50-DOLG](https://pan.baidu.com/s/13Bt1v_sMSny8pGRIM0K8xQ) (d7or)   - [R-101-DOLG](https://pan.baidu.com/s/1_osEyC53txA-_1cbadBzLQ) (nqdb)
 
 
 ## Citation
@@ -46,11 +56,13 @@ pip install -r requirements.txt
 If the project helps your research, please consider citing our paper as follows.
 
 ```BibTeX
-@inproceedings{yang2021dolg,
-  title = {DOLG: Single-Stage Image Retrieval with Deep Orthogonal Fusion of Local and Global Features},
-  author = {Min Yang and Dongliang He and Miao Fan and Baorong Shi and Xuetong Xue and Fu Li and Errui Ding and Jizhou Huang},
-  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-  year = {2021}
+@InProceedings{Yang_2021_ICCV,
+    author={Yang, Min and He, Dongliang and Fan, Miao and Shi, Baorong and Xue, Xuetong and Li, Fu and Ding, Errui and Huang, Jizhou},
+    title={DOLG: Single-Stage Image Retrieval With Deep Orthogonal Fusion of Local and Global Features},
+    booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+    month={October},
+    year={2021},
+    pages={11772-11781}
 }
 
 ```
@@ -59,6 +71,9 @@ If the project helps your research, please consider citing our paper as follows.
 ## References
 
 pycls(https://github.com/facebookresearch/pycls)
+
 pymetric(https://github.com/feymanpriv/pymetric)
+
 DELG(https://github.com/feymanpriv/DELG)
+
 Parsing-R-CNN(https://github.com/soeaver/Parsing-R-CNN)
