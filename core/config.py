@@ -39,6 +39,9 @@ _C.MODEL.S4_DIM = 2048
 _C.MODEL.S3_DIM = 1024
 _C.MODEL.S2_DIM = 512
 
+# ASPP
+_C.MODEL.WITH_MA = False
+
 # Number of classes
 _C.MODEL.NUM_CLASSES = 10
 

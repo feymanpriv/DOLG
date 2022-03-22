@@ -21,15 +21,21 @@ from core.config import cfg
 import core.config as config
 from model.resnet import ResNet, ResHead 
 from model.resnet import GeneralizedMeanPoolingP
-from model.dolg_model_f3orth import DOLG
+from model.dolg_model import DOLG
 
 from process import preprocess
+from revisitop.dataset import configdataset
 from util import walkfile, l2_norm
 
 """ common settings """
-MODEL_WEIGHTS = '~/.../model_dolg.pyth'
-INFER_DIR = '~/.../datasets/roxford5k/jpg/'
-SCALE_LIST = [0.7071, 1.0, 1.4142]
+MODEL_WEIGHTS = './weights/r101_dolg_512.pyth'
+INFER_DIR = './datasets/RevisitOP/Roxford5k/images'
+SCALE_LIST = [0.3535, 0.5, 0.7071, 1.0, 1.4142]
+
+test_dataset = 'roxford5k'
+#test_dataset = 'rparis6k'
+DATA_DIR = './revisitop'
+data_cfg = configdataset(test_dataset, DATA_DIR)
 
 
 def setup_model():
@@ -58,7 +64,6 @@ def extract(img, model):
             globalfeature += global_feature.cpu().detach().numpy()
     global_feature = globalfeature / len(SCALE_LIST)
     global_feature = l2_norm(global_feature)
-    #torch.cuda.empty_cache()
     return global_feature
 
 
@@ -68,24 +73,28 @@ def main(spath):
         feadic = {}
         for index, imgfile in enumerate(walkfile(spath)):
             ext = os.path.splitext(imgfile)[-1]
-            name = os.path.basename(imgfile)
-            print(index, name)
+            name = os.path.basename(imgfile).split('.')[0]
             if ext.lower() in ['.jpg', '.jpeg', '.bmp', '.png', '.pgm']:
-                im = cv2.imread(imgfile)
                 try:
-                    h, w = im.shape[:2]
-                    #if h * w > 3354624:
-                        #continue
+                    im = cv2.imread(imgfile)
+                    if name in data_cfg['qimlist']:
+                        pos = data_cfg['qimlist'].index(name)
+                        x1, y1, x2, y2 = map(int, data_cfg['gnd'][pos]['bbx'])
+                        cropped_im = im[y1:y2, x1:x2] #crop query image
+                        im = cropped_im
+                    if index % 1000 == 0:
+                        print(index, name, im.shape)
                     im = im.astype(np.float32, copy=False)
                     data = extract(im, model)
                     feadic[name] = data
                 except:
-                    continue
-    with open(spath.split("/")[-2]+"dolgfea.pickle", "wb") as fout:
+                    print (name)
+    with open("./output/rparis_R50_512_test5.pickle", "wb") as fout:   
         pickle.dump(feadic, fout, protocol=2)
 
 
 def main_multicard(spath, cutno, total_num):
+    """multi processes for extracting 1M distractors features"""
     with torch.no_grad():
         model = setup_model()
         feadic = {'X':[]}
@@ -104,10 +113,10 @@ def main_multicard(spath, cutno, total_num):
                     data =  extract(im, model)
                     feadic['X'].append(data)
                 except:
+                    print (name)
                     continue
-        toname='./features/1M/'+"nolocal.mat"+'_%d' % cutno
+        toname='./features/1M/'+".mat"+'_%d' % cutno
         savemat(toname,feadic)
-
 
 
 def load_checkpoint(checkpoint_file, model):

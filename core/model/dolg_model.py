@@ -90,17 +90,19 @@ class SpatialAttention2d(nn.Module):
     SpatialAttention2d
     2-layer 1x1 conv network with softplus activation.
     '''
-    def __init__(self, in_c, act_fn='relu'):
+    def __init__(self, in_c, act_fn='relu', with_aspp=cfg.MODEL.WITH_MA):
         super(SpatialAttention2d, self).__init__()
-
-        #self.aspp = ASPP(1024)
-        self.conv1 = nn.Conv2d(in_c, 1024, 1, 1)
-        self.bn = nn.BatchNorm2d(1024, eps=cfg.BN.EPS, momentum=cfg.BN.MOM)
+        
+        self.with_aspp = with_aspp
+        if self.with_aspp:
+            self.aspp = ASPP(cfg.MODEL.S3_DIM)
+        self.conv1 = nn.Conv2d(in_c, cfg.MODEL.S3_DIM, 1, 1)
+        self.bn = nn.BatchNorm2d(cfg.MODEL.S3_DIM, eps=cfg.BN.EPS, momentum=cfg.BN.MOM)
         if act_fn.lower() in ['relu']:
             self.act1 = nn.ReLU()
         elif act_fn.lower() in ['leakyrelu', 'leaky', 'leaky_relu']:
             self.act1 = nn.LeakyReLU()
-        self.conv2 = nn.Conv2d(1024, 1, 1, 1)
+        self.conv2 = nn.Conv2d(cfg.MODEL.S3_DIM, 1, 1, 1)
         self.softplus = nn.Softplus(beta=1, threshold=20) # use default setting.
 
         for conv in [self.conv1, self.conv2]: 
@@ -111,7 +113,8 @@ class SpatialAttention2d(nn.Module):
         x : spatial feature map. (b x c x w x h)
         att : softplus attention score 
         '''
-        #x = self.aspp(x)
+        if self.with_aspp:
+            x = self.aspp(x)
         x = self.conv1(x)
         x = self.bn(x)
         

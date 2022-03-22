@@ -21,10 +21,9 @@ from compute import compute_map
 
 data_root =  osp.abspath(osp.dirname(osp.dirname(__file__))) 
 
-#test_dataset = 'roxford5k'
-test_dataset = 'rparis6k'  
+test_dataset = 'roxford5k'
+#test_dataset = 'rparis6k'  
 print('>> {}: Evaluating test dataset...'.format(test_dataset)) 
-#GLOBAL_FEATURE_PATH='features/roxford5kdolgfea.pickle'
 GLOBAL_FEATURE_PATH='features/rparis6kdolgfea.pickle'
 DISTRACTOR_FEATURE_PATH='features/1M.mat'
 WITH_1M = False
@@ -35,9 +34,9 @@ def process(fea_pickle_path, cfg):
     with open(fea_pickle_path, "rb") as f:
         feadic = pickle.load(f)
         for qname in cfg['qimlist']:
-            features['Q'].append(feadic[qname+'.jpg'].reshape(-1))
+            features['Q'].append(feadic[qname].reshape(-1))
         for name in cfg['imlist']:
-            features['X'].append(feadic[name+'.jpg'].reshape(-1))
+            features['X'].append(feadic[name].reshape(-1))
     if WITH_1M:
         data = loadmat(DISTRACTOR_FEATURE_PATH)    
         features['X'] += list(data['X'].squeeze())
@@ -57,7 +56,7 @@ def global_search(features):
 
     sim = np.dot(X, Q.T)
     ranks = np.argsort(-sim, axis=0)
-    np.save("ranks_before_gv.npy", ranks)
+    #np.save("ranks_before_gv.npy", ranks)
     return ranks
 
 
