@@ -19,9 +19,9 @@ import torch.nn.functional as F
 
 from core.config import cfg
 import core.config as config
-from model.resnet import ResNet, ResHead 
-from model.resnet import GeneralizedMeanPoolingP
-from model.dolg_model import DOLG
+from core.model.resnet import ResNet, ResHead 
+from core.model.resnet import GeneralizedMeanPoolingP
+from core.model.dolg_model import DOLG
 
 from process import preprocess
 from revisitop.dataset import configdataset

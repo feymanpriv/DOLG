@@ -55,7 +55,7 @@ python evaler/infer.py --cfg configs/resnet101_delg_8gpu.yaml
 2. 1M distractor feature extraction, set ${total_num} = n * ${gpu_cards} in **configs/resnet101_delg_8gpu.yaml** and run 
 
 ```
-sh scripts/run_extractor.sh
+sh scripts/run_extractor.sh configs/resnet101_delg_8gpu.yaml
 ```
 
 3. Eval on ROxf and RPar, refer [`README.md`](revisitop/README.md) for data fetch and description. Groudtruth file and some examples are prepared in [revisitop](https://github.com/feymanpriv/DOLG/tree/main/revisitop). 

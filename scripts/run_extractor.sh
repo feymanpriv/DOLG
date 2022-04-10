@@ -7,7 +7,7 @@ do
     {
     let gpu_id=cutno%4
     export CUDA_VISIBLE_DEVICES=$gpu_id
-    cmd="python evaler/infer.py --cfg CONFIG INFER.TOTAL_NUM ${total_num} INFER.CUT_NUM ${cutno} "
+    cmd="python evaler/infer.py --cfg $CONFIG INFER.TOTAL_NUM ${total_num} INFER.CUT_NUM ${cutno} "
     echo [start cmd:] ${cmd}
     echo ${cmd} | sh 
     } &
