@@ -24,7 +24,7 @@ class DOLG(nn.Module):
     def __init__(self):
         super(DOLG, self).__init__()
         self.pool_l= nn.AdaptiveAvgPool2d((1, 1)) 
-        self.pool_g = GeneralizedMeanPooling(norm=3.0) 
+        self.pool_g = GeneralizedMeanPoolingP(norm=3.0) 
         self.fc_t = nn.Linear(cfg.MODEL.S4_DIM, cfg.MODEL.S3_DIM, bias=True)
         self.fc = nn.Linear(cfg.MODEL.S4_DIM, cfg.MODEL.HEADS.REDUCTION_DIM, bias=True)
         self.globalmodel = ResNet()
