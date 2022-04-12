@@ -24,8 +24,8 @@ data_root =  osp.abspath(osp.dirname(osp.dirname(__file__)))
 test_dataset = 'roxford5k'
 #test_dataset = 'rparis6k'  
 print('>> {}: Evaluating test dataset...'.format(test_dataset)) 
-GLOBAL_FEATURE_PATH='features/rparis6kdolgfea.pickle'
-DISTRACTOR_FEATURE_PATH='features/1M.mat'
+GLOBAL_FEATURE_PATH='./features/rparis_R101_512_test5.pickle'
+DISTRACTOR_FEATURE_PATH='./features/1M.mat'
 WITH_1M = False
 
 
